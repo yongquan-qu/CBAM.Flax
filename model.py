@@ -1,5 +1,6 @@
 import jax
 import flax.linen as nn
+import jax.numpy as jnp
 
 
 class CAMlp(nn.Module):
