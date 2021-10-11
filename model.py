@@ -32,6 +32,7 @@ class ChannelAttention(nn.Module):
     """
     Channel Attention Module
     """
+    
     def setup(self):
         
         self.mlp = CAMlp()
@@ -88,8 +89,7 @@ class CBAMResBlock(nn.Module):
     """
     CBAM integrated with a ResBlock in ResNet
     """
-   
-    
+  
     def setup(self):
         self.conv1 = nn.Conv(64, (3,3), use_bias=False)
         self.bn1 = nn.BatchNorm(use_running_average=True)
