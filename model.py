@@ -104,12 +104,12 @@ class CBAMResBlock(nn.Module):
         
         residual = x
         
-        out = self.conv1(x)
-        out = self.bn1(out)
-        out = self.relu(out)
+        out = nn.Conv(64, (3,3), use_bias=False)(x)
+        out = nn.BatchNorm()(out)
+        out = nn.gelu(out)
         
-        out = self.conv2(out)
-        out = self.bn2(out)
+        out = nn.Conv(64, (3,3), use_bias=False)(out)
+        out = nn.BatchNorm()(out)
         
         out = self.cbam(out)
         
@@ -118,6 +118,6 @@ class CBAMResBlock(nn.Module):
                                name='conv_projection')(residual)
         
         out += residual
-        out = self.relu(out)
+        out = nn.gelu(out)
         
         return out
