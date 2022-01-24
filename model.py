@@ -7,25 +7,25 @@ class CAMlp(nn.Module):
     """
     Mlp in Channel Attention Module.
     """ 
-    
+
     @nn.compact
     def __call__(self, inputs):
         
-        x = nn.Dense(
-            features=inputs.shape[-1]//2,
-            dtype=jnp.float32,
-            kernel_init=nn.initializers.xavier_uniform(),
-            use_bias=False)(
-                inputs)
+        x = nn.Conv(
+            features=inputs.shape[-1]//16,
+            kernel_size=(1,1),
+            padding='SAME',
+            use_bias=False)(inputs)
+ 
         x = nn.relu(x)
-        output = nn.Dense(
+
+        x = nn.Conv(
             features=inputs.shape[-1],
-            dtype=jnp.float32,
-            kernel_init=nn.initializers.xavier_uniform(),
-            use_bias=False)(
-                x)
+            kernel_size=(1,1),
+            padding='SAME',
+            use_bias=False)(x)
         
-        return output
+        return x
     
     
 class ChannelAttention(nn.Module):
